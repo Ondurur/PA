@@ -1,0 +1,44 @@
+Dobrý den,
+dovolil jsem si implementovat problém nqueens s backtrackovacím algoritmem pro zjištění všech možných kombinací.
+Všechny 3 řešení jsou paralelizované. Pro řešení jsem využil jazyků python, Java a C#.
+Ve všech 3 jazycích existuje někde v programu předdefinované n, které říká kolik polí a dam je na šachovnici.
+Algoritmus funguje takto:
+1. vytvoř board o velikosti n*n kde všude jsou 0
+2. podívej se do levého sloupce a najdi vrchní nulu. Může tady být dáma?
+3. tady se spouští paraleliční procesy, které nám zjišťují sloupec řádek a diagonálu, jestli tady dáma může být.
+Pokud ano označ tuto pozici jako 1 a pokračuj do dalšího sloupce, pokud ne pokračuj na další řádek.
+4. Jakmile se dostaneme do posledního sloupce, tak začíná backtrackovací proces.
+Jelikož se ukončují postupně funkce s tím jestli našli nějakou kombinaci tak můžeme přepsat danou pozici na 0
+a předstírat, že tady dáma umístit nelze. V tu chvíli algoritmus bude hledat jinou kombinaci se stejnými předchůdci.
+5. Výstupem funkce je tedy true nebo false a do globálního listu de nám vypisuje pozice řádku postupně ve sloupcích
+dané dámy.
+
+Příklady výstupů:
+n=4
+Result:[[3, 1, 4, 2], [2, 4, 1, 3]]
+
+n=5
+Result:[[1, 4, 2, 5, 3], [1, 3, 5, 2, 4], [3, 1, 4, 2, 5], [4, 1, 3, 5, 2], 
+[2, 4, 1, 3, 5], [5, 3, 1, 4, 2], [2, 5, 3, 1, 4], [5, 2, 4, 1, 3], [4, 2, 5, 3, 1], [3, 5, 2, 4, 1]]
+
+n=6
+Result:[[4, 1, 5, 2, 6, 3], [5, 3, 1, 6, 4, 2], [2, 4, 6, 1, 3, 5], [3, 6, 2, 5, 1, 4]]
+
+n=7
+Result:[[1, 5, 2, 6, 3, 7, 4], [1, 6, 4, 2, 7, 5, 3], [1, 3, 5, 7, 2, 4, 6], [1, 4, 7, 3, 6, 2, 5],
+[3, 1, 6, 2, 5, 7, 4], [4, 1, 5, 2, 6, 3, 7], [3, 1, 6, 4, 2, 7, 5], [4, 1, 3, 6, 2, 7, 5], 
+[5, 1, 6, 4, 2, 7, 3], [6, 1, 3, 5, 7, 2, 4], [5, 1, 4, 7, 3, 6, 2], [2, 4, 1, 7, 5, 3, 6], 
+[2, 5, 1, 4, 7, 3, 6], [7, 4, 1, 5, 2, 6, 3], [5, 3, 1, 6, 4, 2, 7], [6, 3, 1, 4, 7, 5, 2], 
+[4, 6, 1, 3, 5, 7, 2], [2, 5, 3, 1, 7, 4, 6], [2, 4, 6, 1, 3, 5, 7], [6, 2, 5, 1, 4, 7, 3], 
+[3, 7, 4, 1, 5, 2, 6], [7, 5, 3, 1, 6, 4, 2], [6, 4, 7, 1, 3, 5, 2], [2, 7, 5, 3, 1, 6, 4], 
+[2, 5, 7, 4, 1, 3, 6], [7, 2, 4, 6, 1, 3, 5], [3, 6, 2, 5, 1, 4, 7], [6, 3, 7, 4, 1, 5, 2], 
+[6, 3, 5, 7, 1, 4, 2], [2, 6, 3, 7, 4, 1, 5], [4, 2, 7, 5, 3, 1, 6], [3, 7, 2, 4, 6, 1, 5], 
+[5, 7, 2, 6, 3, 1, 4], [5, 7, 2, 4, 6, 1, 3], [7, 3, 6, 2, 5, 1, 4], [4, 7, 5, 2, 6, 1, 3], 
+[5, 2, 6, 3, 7, 4, 1], [6, 4, 2, 7, 5, 3, 1], [3, 5, 7, 2, 4, 6, 1], [4, 7, 3, 6, 2, 5, 1]]
+
+a tak dále...
+
+Jak jde vidět výpočetní doba nám exponenciálně roste a proto se hodí paralelizace.
+Původně jsem uvažoval nad paralelizací každého řádku, jelikož ale volám funkci rekurzivně, tak by
+exponenciálně vzrůstal i počet procesů, které bych vytvářel a hrozilo by, že by paralelizace nebyla k užitku
+ba naopak ke škodě. Proto jsem se rozhodl paralelizovat čistě kontrolu pro umístění dámy.

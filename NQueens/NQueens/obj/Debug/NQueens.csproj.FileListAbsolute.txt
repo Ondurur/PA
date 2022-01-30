@@ -1,0 +1,7 @@
+C:\Users\th3bl\Desktop\DND project\NQueens\NQueens\obj\Debug\NQueens.csprojAssemblyReference.cache
+C:\Users\th3bl\Desktop\DND project\NQueens\NQueens\obj\Debug\NQueens.csproj.CoreCompileInputs.cache
+C:\Users\th3bl\Desktop\DND project\NQueens\NQueens\bin\Debug\NQueens.exe.config
+C:\Users\th3bl\Desktop\DND project\NQueens\NQueens\bin\Debug\NQueens.exe
+C:\Users\th3bl\Desktop\DND project\NQueens\NQueens\bin\Debug\NQueens.pdb
+C:\Users\th3bl\Desktop\DND project\NQueens\NQueens\obj\Debug\NQueens.exe
+C:\Users\th3bl\Desktop\DND project\NQueens\NQueens\obj\Debug\NQueens.pdb
