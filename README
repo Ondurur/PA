@@ -4,14 +4,12 @@ Všechny 3 řešení jsou paralelizované. Pro řešení jsem využil jazyků py
 Ve všech 3 jazycích existuje někde v programu předdefinované n, které říká kolik polí a dam je na šachovnici.
 Algoritmus funguje takto:
 1. vytvoř board o velikosti n*n kde všude jsou 0
-2. podívej se do levého sloupce a najdi vrchní nulu. Může tady být dáma?
-3. tady se spouští paraleliční procesy, které nám zjišťují sloupec řádek a diagonálu, jestli tady dáma může být.
-Pokud ano označ tuto pozici jako 1 a pokračuj do dalšího sloupce, pokud ne pokračuj na další řádek.
-4. Jakmile se dostaneme do posledního sloupce, tak začíná backtrackovací proces.
-Jelikož se ukončují postupně funkce s tím jestli našli nějakou kombinaci tak můžeme přepsat danou pozici na 0
-a předstírat, že tady dáma umístit nelze. V tu chvíli algoritmus bude hledat jinou kombinaci se stejnými předchůdci.
-5. Výstupem funkce je tedy true nebo false a do globálního listu de nám vypisuje pozice řádku postupně ve sloupcích
-dané dámy.
+2. podívej se do levého sloupce a najdi vrchní nulu. Toto místo označ jako sledované, číslem 1. Dále zjisti, jestli tady může být dáma?
+3. tady se spouští paralelizační procesy(v pythonu pouze vlákna), které nám kontrolují sloupec řádek a diagonálu, jestli tady dáma může být.
+Pokud ano pokračuj na další sloupec. Pokud ne pokračuj na další řádek a na pozici na kterou ses díval dej 0. 
+4. Jakmile se dostaneme do posledního sloupce, tak se zeptám, byl jsem schpný do každého sloupce umístit dámu?
+Pokud ano, tak tuto kombinaci zapiš do výstupního pole. Jakmile se výstup zapíše tak sledovaná pozice se zapíše
+na 0 a dívá se na další řádek. Tímto se projdou všechny kombinace.
 
 Příklady výstupů:
 n=4
@@ -40,5 +38,5 @@ a tak dále...
 
 Jak jde vidět výpočetní doba nám exponenciálně roste a proto se hodí paralelizace.
 Původně jsem uvažoval nad paralelizací každého řádku, jelikož ale volám funkci rekurzivně, tak by
-exponenciálně vzrůstal i počet procesů, které bych vytvářel a hrozilo by, že by paralelizace nebyla k užitku
+exponenciálně vzrůstal i počet procesů(vláken), které bych vytvářel a hrozilo by, že by paralelizace nebyla k užitku
 ba naopak ke škodě. Proto jsem se rozhodl paralelizovat čistě kontrolu pro umístění dámy.
